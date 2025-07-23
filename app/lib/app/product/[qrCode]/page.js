@@ -1,4 +1,3 @@
-// 10. Create app/product/[qrCode]/page.js (Dynamic Product Pages)
 import { supabase } from '../../../lib/supabase'
 import ProductAuthentication from './ProductAuthentication'
 import { notFound } from 'next/navigation'
