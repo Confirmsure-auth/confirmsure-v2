@@ -9,11 +9,15 @@ export default function ProductAuthentication({ product }) {
   const images = product.product_images || []
 
   const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % images.length)
+    if (images.length > 0) {
+      setCurrentImageIndex((prev) => (prev + 1) % images.length)
+    }
   }
 
   const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)
+    if (images.length > 0) {
+      setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)
+    }
   }
 
   return (
@@ -56,6 +60,8 @@ export default function ProductAuthentication({ product }) {
                       alt={`${product.product_name} - View ${currentImageIndex + 1}`}
                       fill
                       className="object-cover"
+                      priority={currentImageIndex === 0}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                     
                     {/* Navigation Buttons */}
