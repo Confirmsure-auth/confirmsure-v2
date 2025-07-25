@@ -11,18 +11,11 @@ if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error('Missing Supabase environment variables. Please check NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local')
 }
 
-try {
-  export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-    auth: {
-      persistSession: false
-    },
-    db: {
-      schema: 'public'
-    }
-  })
-  
-  console.log('Supabase client initialized successfully')
-} catch (error) {
-  console.error('Failed to initialize Supabase client:', error)
-  throw new Error(`Supabase initialization failed: ${error.message}`)
-}
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    persistSession: false
+  },
+  db: {
+    schema: 'public'
+  }
+})
