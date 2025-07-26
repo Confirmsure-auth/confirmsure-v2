@@ -15,9 +15,6 @@ import {
   Filter,
   Download
 } from 'lucide-react'
-import StatsCards from '../../components/factory/StatsCards'
-import RecentProducts from '../../components/factory/RecentProducts'
-import QuickActions from '../../components/factory/QuickActions'
 
 export default function FactoryDashboard() {
   const [stats, setStats] = useState({

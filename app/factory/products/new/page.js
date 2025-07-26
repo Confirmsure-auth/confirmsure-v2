@@ -1,7 +1,6 @@
 'use client'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import ProductForm from '../../../components/factory/ProductForm'
 import { ArrowLeft, AlertCircle, CheckCircle } from 'lucide-react'
 import Link from 'next/link'
 
@@ -165,12 +164,172 @@ export default function NewProductPage() {
         )}
 
         {/* Form */}
-        <ProductForm
+        <InlineProductForm
           onSubmit={handleSubmit}
           onCancel={handleCancel}
           isSubmitting={isSubmitting}
         />
       </div>
+    </div>
+  )
+}
+
+function InlineProductForm({ onSubmit, onCancel, isSubmitting }) {
+  const [formData, setFormData] = useState({
+    product_name: '',
+    product_type: '',
+    description: '',
+    batch_id: '',
+    serial_number: '',
+    manufacturing_date: '',
+    expiry_date: '',
+    qr_code: '',
+    metadata: {},
+    images: [],
+    markers: []
+  })
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    onSubmit(formData)
+  }
+
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-gray-100">
+      <form onSubmit={handleSubmit} className="p-6 space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Product Name *
+            </label>
+            <input
+              type="text"
+              name="product_name"
+              value={formData.product_name}
+              onChange={handleInputChange}
+              required
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-confirmsure-blue focus:border-transparent"
+              placeholder="Enter product name"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Product Type *
+            </label>
+            <select
+              name="product_type"
+              value={formData.product_type}
+              onChange={handleInputChange}
+              required
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-confirmsure-blue focus:border-transparent"
+            >
+              <option value="">Select product type</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Pharmaceuticals">Pharmaceuticals</option>
+              <option value="Cosmetics">Cosmetics</option>
+              <option value="Food & Beverage">Food & Beverage</option>
+              <option value="Automotive">Automotive</option>
+              <option value="Textiles">Textiles</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Batch ID
+            </label>
+            <input
+              type="text"
+              name="batch_id"
+              value={formData.batch_id}
+              onChange={handleInputChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-confirmsure-blue focus:border-transparent"
+              placeholder="Enter batch ID"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Serial Number
+            </label>
+            <input
+              type="text"
+              name="serial_number"
+              value={formData.serial_number}
+              onChange={handleInputChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-confirmsure-blue focus:border-transparent"
+              placeholder="Enter serial number"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Manufacturing Date
+            </label>
+            <input
+              type="date"
+              name="manufacturing_date"
+              value={formData.manufacturing_date}
+              onChange={handleInputChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-confirmsure-blue focus:border-transparent"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Expiry Date
+            </label>
+            <input
+              type="date"
+              name="expiry_date"
+              value={formData.expiry_date}
+              onChange={handleInputChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-confirmsure-blue focus:border-transparent"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Description
+          </label>
+          <textarea
+            name="description"
+            value={formData.description}
+            onChange={handleInputChange}
+            rows={4}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-confirmsure-blue focus:border-transparent"
+            placeholder="Enter product description"
+          />
+        </div>
+
+        <div className="flex items-center justify-between pt-6 border-t border-gray-200">
+          <button
+            type="button"
+            onClick={onCancel}
+            disabled={isSubmitting}
+            className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isSubmitting ? 'Creating Product...' : 'Create Product'}
+          </button>
+        </div>
+      </form>
     </div>
   )
 }
