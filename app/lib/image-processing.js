@@ -1,5 +1,7 @@
 import sharp from 'sharp'
-import { supabase } from './supabase'
+import { createClient } from './supabase'
+
+const supabase = createClient()
 
 // Image processing configuration
 const IMAGE_CONFIG = {

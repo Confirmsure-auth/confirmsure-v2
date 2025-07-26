@@ -1,4 +1,6 @@
-import { supabase } from './supabase'
+import { createClient } from './supabase'
+
+const supabase = createClient()
 
 // User roles and permissions
 export const ROLES = {

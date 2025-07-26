@@ -5,8 +5,10 @@ import {
   batchProcessImages, 
   validateImageFile 
 } from '../../lib/image-processing'
-import { supabase } from '../../lib/supabase'
+import { createClient } from '../../lib/supabase'
 import { imageUploadSchema } from '../../lib/validation'
+
+const supabase = createClient()
 
 export async function POST(request) {
   try {

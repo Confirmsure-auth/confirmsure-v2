@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import { getCurrentUser } from '../../../../lib/auth'
-import { supabase } from '../../../../lib/supabase'
+import { createClient } from '../../../../lib/supabase'
+
+const supabase = createClient()
 import { format, eachDayOfInterval, startOfDay } from 'date-fns'
 
 export async function GET(request) {

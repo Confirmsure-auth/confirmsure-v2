@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import { getCurrentUser } from '../../../../lib/auth'
-import { supabase } from '../../../../lib/supabase'
+import { createClient } from '../../../../lib/supabase'
+
+const supabase = createClient()
 
 export async function GET(request) {
   try {

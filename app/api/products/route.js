@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server'
 import { getCurrentUser, hasPermission, PERMISSIONS } from '../../lib/auth'
-import { supabase } from '../../lib/supabase'
+import { createClient } from '../../lib/supabase'
 import { productSchema, productSearchSchema } from '../../lib/validation'
 import { generateUniqueQRCode } from '../../lib/qr-generator'
+
+const supabase = createClient()
 
 export async function POST(request) {
   try {

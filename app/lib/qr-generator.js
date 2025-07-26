@@ -1,5 +1,7 @@
 import QRCode from 'qrcode'
-import { supabase } from './supabase'
+import { createClient } from './supabase'
+
+const supabase = createClient()
 
 // QR code generation configuration
 const QR_CONFIG = {
