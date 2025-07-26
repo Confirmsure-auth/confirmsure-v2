@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
+import { createServerClient } from '@supabase/ssr'
 
 // Protected route patterns
 const PROTECTED_ROUTES = {
@@ -173,7 +173,23 @@ function handleApiRoute(request, response) {
  */
 async function handleProtectedRoute(request, response) {
   try {
-    const supabase = createMiddlewareClient({ req: request, res: response })
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      {
+        cookies: {
+          get(name) {
+            return request.cookies.get(name)?.value
+          },
+          set(name, value, options) {
+            response.cookies.set({ name, value, ...options })
+          },
+          remove(name, options) {
+            response.cookies.set({ name, value: '', ...options })
+          }
+        }
+      }
+    )
     const { data: { session } } = await supabase.auth.getSession()
 
     if (!session) {
