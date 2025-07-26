@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server'
 import { getCurrentUser, hasPermission, PERMISSIONS } from '../../../lib/auth'
-import { supabase } from '../../../lib/supabase'
+import { createClient } from '../../../lib/supabase'
 import { authenticationMarkerSchema } from '../../../lib/validation'
+
+const supabase = createClient()
 
 export async function POST(request) {
   try {

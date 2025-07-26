@@ -1,4 +1,6 @@
-import { supabase } from '../../lib/supabase'
+import { createClient } from '../../lib/supabase'
+
+const supabase = createClient()
 import ProductAuthentication from './ProductAuthentication'
 import { notFound } from 'next/navigation'
 
